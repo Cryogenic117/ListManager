@@ -1,0 +1,55 @@
+@startuml
+class App {
+main()
+start()
+}
+class ListController {
+
+initialize()
+initializeDisplayBox()
+initializeTable()
+refreshView()
+changeDisplayType()
+ChangeItemNameEvent()
+ChangeDescriptionEvent()
+ChangeStatusEvent()
+ChangeDueDateEvent()
+deleteButtonClicked()
+addButtonClicked()
+importButtonClicked()
+exportButtonClicked()
+ClearListButtonClicked()
+
+
+
+
+}
+Class ListFunctions {
+initialize()
+displayComplete()
+displayIncomplete()
+addEmptyListItem()
+addListItem()
+deleteListItem()
+}
+
+Class FileManagement {
+importHandler()
+import()
+export()
+}
+
+
+Class item{
+-item_name
+-dueDate
+-description
+-status
+}
+
+javafx.application <|-- App
+javafx.application -- ListController
+ListController -- ListFunctions
+ListController -- item
+ListController -- FileManagement
+@enduml
