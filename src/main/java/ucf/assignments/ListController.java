@@ -4,17 +4,25 @@
  */
 package ucf.assignments;
 
- import javafx.collections.FXCollections;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+
+import static javafx.application.Platform.exit;
 
 
 public class ListController {
@@ -25,12 +33,9 @@ public class ListController {
     @FXML public TableColumn<Item, String> descriptionColumn;
     @FXML public TableColumn<Item, String> dueDateColumn;
     @FXML public TableColumn<Item, String> statusColumn;
-    public AnchorPane displayType;
-    // Text field
-    @FXML public TextField filePathField;
-    @FXML public TextField fileNameField;
-    // Choice box
+    // Error Reporters
     @FXML public Label errorReporter;
+    // Choice box
     @FXML ObservableList<String> displayBoxList = FXCollections.observableArrayList("All", "Incomplete", "Complete");
     @FXML private ChoiceBox<String> displayBox;
 
@@ -111,6 +116,7 @@ public class ListController {
 
     // Button Functions
     public void deleteButtonClicked() {
+        errorReporter.setText("");
         if(tableView.getSelectionModel().getSelectedItems().size() == 0) {
             errorReporter.setText("Error: No Items Selected");
         }
@@ -121,42 +127,55 @@ public class ListController {
 
     // creates new empty item
     public void addButtonClicked() {
+        errorReporter.setText("");
         ListFunctions.addEmptyListItem(allList);
     }
 
     // calls import function and then refreshes Display based on type
     public void importButtonClicked() {
-        if(!FileManagement.importFile(filePathField.getCharacters().toString())) {
-            errorReporter.setText("Error: Invalid Import Path Entry Please Try Again.");
-
-            return;
-        }
         errorReporter.setText("");
-        filePathField.setText("");
+        final FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(stage.getStage());
+        if (file != null) {
+            if (!FileManagement.importFile(file)) {
+                errorReporter.setText("Error: Invalid File Please Try Again.");
+            }
+        }
         changeDisplayType();
-
     }
 
     // exports to file using given name and path
     public void exportButtonClicked() {
-        if(!FileManagement.exportHandler(fileNameField, filePathField)) {
-            errorReporter.setText("Error: Invalid Export Path or Name, Please Try Again.");
-        }
-        else {
-            errorReporter.setText("");
-            filePathField.setText("");
+        errorReporter.setText("");
+        if(!FileManagement.exportHandler()) {
+            errorReporter.setText("Error: Failed to Export");
         }
     }
 
     // assign display to new empty list
     public void clearListButtonClicked() {
+        errorReporter.setText("");
         // Only allowed to be used when using all view
         if (displayBox.getValue().toLowerCase().compareTo("all") == 0) {
             allList = FXCollections.observableArrayList();
             refreshView();
         }
     }
+    public void closeButtonClicked() {
+            exit();
+    }
+    public void aboutButtonClicked() {
+            try {
+                Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("popup.fxml")));
+                Scene scene = new Scene(parent);
+                Stage popup = new Stage();
+                popup.setScene(scene);
+                popup.setTitle("Help");
+                popup.show();
+            } catch (Exception ignored){}
 
+
+    }
     public void toggleStatusButtonPressed() {
         if(tableView.getSelectionModel().getSelectedItems().size() == 0) {
             errorReporter.setText("Error: No Items Selected");

@@ -3,36 +3,31 @@
  *  Copyright 2021 Brandon Knudson
  */
 package ucf.assignments;
-import javafx.scene.control.TextField;
+
+import javafx.stage.FileChooser;
 
 import java.io.*;
 import java.util.Scanner;
 
 public class FileManagement {
 
-    public static Boolean exportHandler(TextField fileNameField , TextField filePathField) {
-        // if there is no name for file do not run function
-        if(fileNameField.getCharacters().toString().isEmpty()) {
-            return false;
-        }
-        Boolean attemptStatus = writeToFile(fileNameField.getCharacters().toString(), filePathField.getCharacters().toString());
+    public static Boolean exportHandler() {
+        final FileChooser chooser = new FileChooser();
+        chooser.setInitialFileName("Untitled");
+        chooser.setTitle("Save");
+        chooser.setTitle("Save");
+        chooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Saved List", "*.txt*"));
+        //chooser.setSelectedExtensionFilter(filter);
+        File file = chooser.showSaveDialog(stage.getStage());
         // if the file doesn't write properly give user error
-        if(!attemptStatus) {
-            return false;
-        }
-        // if file writes successfully clear user input
-        else {
-            fileNameField.setText("");
-            filePathField.setText("");
-        }
-        return true;
+        return writeToFile(file);
     }
 
-   public static Boolean writeToFile(String name, String filePath) {
+   public static Boolean writeToFile(File file) {
        PrintWriter writer;
 
        try {
-           FileWriter fw = new FileWriter(filePath + "\\" + name + ".txt", false);
+           FileWriter fw = new FileWriter(file);
            writer = new PrintWriter(fw);
        } catch (IOException e) {
            e.printStackTrace();
@@ -48,18 +43,16 @@ public class FileManagement {
        return true;
    }
 
-   public static Boolean importFile(String filePath) {
+   public static Boolean importFile(File filePath) {
        int itemCount;
        try {
-           File file = new File(filePath);
-           Scanner sc = new Scanner(file);
+           Scanner sc = new Scanner(filePath);
            // get item count
            if (sc.hasNextInt()) {
                itemCount = sc.nextInt();
            }
            // if file format doesn't include number of items
            else {
-               System.out.println("Invalid File Format");
                return false;
            }
            sc.nextLine();

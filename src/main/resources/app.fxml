@@ -3,46 +3,52 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.ListController">
-    <Tab text="List Viewer">
-        <AnchorPane fx:id="displayType" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <ChoiceBox fx:id="displayBox" layoutX="376.0" layoutY="2.0" prefWidth="150.0" />
-            <Label layoutX="299.0" layoutY="6.0" text="Display Status:" />
-            <Button layoutX="506.0" layoutY="332.0" mnemonicParsing="false" onAction="#exportButtonClicked" prefWidth="80.0" text="Export" />
-            <Button layoutX="15.0" layoutY="92.0" mnemonicParsing="false" onAction="#clearListButtonClicked" prefWidth="80.0" text="Clear List" />
-            <Button layoutX="15.0" layoutY="173.0" mnemonicParsing="false" onAction="#addButtonClicked" prefWidth="80.0" text="Add" />
-            <Button layoutX="15.0" layoutY="134.0" mnemonicParsing="false" onAction="#deleteButtonClicked" prefWidth="80.0" text="Delete" />
-            <ScrollPane layoutX="108.0" layoutY="50.0" prefHeight="233.0" prefWidth="478.0">
-                <TableView fx:id="tableView" prefHeight="234.0" prefWidth="483.0">
-                    <columns>
-                        <TableColumn fx:id="descriptionColumn" onEditCommit="#changeDescriptionNameEvent" prefWidth="262.0" text="Item Description" />
-                        <TableColumn fx:id="dueDateColumn" onEditCommit="#changeDueDateEvent" prefWidth="103.0" text="Due Date" />
-                        <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="117.0" text="Status" />
-                    </columns>
-                </TableView>
-            </ScrollPane>
-            <Label layoutX="173.0" layoutY="301.0" text="File Path:" />
-            <TextField fx:id="filePathField" layoutX="221.0" layoutY="297.0" prefHeight="25.0" prefWidth="272.0" />
-            <Button layoutX="506.0" layoutY="297.0" mnemonicParsing="false" onAction="#importButtonClicked" prefWidth="80.0" text="Import" />
-            <Button layoutX="529.0" layoutY="2.0" mnemonicParsing="false" onAction="#changeDisplayType" text="Change" />
-            <TextField fx:id="fileNameField" layoutX="221.0" layoutY="332.0" prefWidth="272.0" />
-         <Button layoutX="11.0" layoutY="208.0" mnemonicParsing="false" onAction="#toggleStatusButtonPressed" prefWidth="89.0" text="Toggle Status" />
-         <Label fx:id="errorReporter" layoutX="108.0" layoutY="33.0" prefHeight="17.0" prefWidth="476.0" textFill="#a81e1e" />
-         <Label layoutX="165.0" layoutY="336.0" text="File Name:" />
-        </AnchorPane>
-    </Tab>
-    <Tab text="Help">
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <TextArea editable="false" layoutX="4.0" layoutY="8.0" prefHeight="356.0" prefWidth="593.0" text="- In order to change a list item double click the field you wish to change and enter a new value&#10;  Limitations include...&#10;        -The date entered is in the format (yyyy-mm-dd); The hyphen symbol is required.&#10;        -The description is less then 256 characters.&#10;&#10;- In order to change the status click a item to select it and then click the &quot;Toggle Status&quot; button.&#10;&#10;- In order to add a new item simply click the &quot;Add&quot; button and a empty item will appear.&#10;&#10;- In order to delete an item select the item by clicking ONCE, then click the &quot;Delete&quot; button.&#10;&#10;- In order to clear the least you must be in the &quot;All&quot; display selection mode, and then click the&#10;    &quot;Clear list&quot; button.&#10;&#10;- The User can sort by any column category by ascending or descending order by clicking through&#10;    the column name.&#10;&#10;- By default all list items will be displayed however you can also display by the item's status by selecting the drop down selection for the appropriate category and clicking the &quot;Change&quot; button.&#10;&#10;- Column Length can be changed to allow increased viewing area for fields longer in length, this is done by &#10;   placing your cursor next to the direction you want to expand the column to and when your cursor changes&#10;   to a double sides arrow click and drag.&#10;&#10;-In order to export your list after populating it with items enter the absolute path of the desired file&#10;    Location. Then type the file name in the file name field and click export.&#10;&#10;- In order to Import a list give the exact file path of the text file inlcuding the file name and extension&#10;   at the end of the path and then click the &quot;Import&quot; Button.&#10;&#10;                            Shout out to Rey for providing an additional requirement of effort. &#10;&#10;" wrapText="true" />
-        </AnchorPane>
-    </Tab>
-</TabPane>
+
+<BorderPane prefHeight="529.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.ListController">
+   <center>
+          <TableView fx:id="tableView" prefHeight="216.0" prefWidth="854.0">
+              <columns>
+                  <TableColumn fx:id="descriptionColumn" onEditCommit="#changeDescriptionNameEvent" prefWidth="250.0" text="Item Description" />
+                  <TableColumn fx:id="dueDateColumn" onEditCommit="#changeDueDateEvent" prefWidth="103.0" text="Due Date" />
+                  <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="117.0" text="Status" />
+              </columns>
+          </TableView>
+   </center>
+   <top>
+       <VBox BorderPane.alignment="CENTER">
+           <MenuBar>
+               <Menu mnemonicParsing="false" text="File">
+                   <MenuItem mnemonicParsing="false" onAction="#importButtonClicked" text="Load"/>
+                   <MenuItem mnemonicParsing="false" onAction="#exportButtonClicked" text="Save As"/>
+                   <MenuItem mnemonicParsing="false" onAction="#closeButtonClicked" text="Close"/>
+               </Menu>
+               <Menu mnemonicParsing="false" text="Edit">
+                   <MenuItem mnemonicParsing="false" onAction="#clearListButtonClicked" text="Clear List"/>
+               </Menu>
+               <Menu mnemonicParsing="false" text="Help">
+                   <MenuItem mnemonicParsing="false" onAction="#aboutButtonClicked" text="About"/>
+               </Menu>
+           </MenuBar>
+           <Label fx:id="errorReporter" prefHeight="17.0" prefWidth="291.0" textFill="#a81e1e"/>
+       </VBox>
+   </top>
+   <bottom>
+       <ToolBar prefHeight="50.0" BorderPane.alignment="CENTER">
+           <ChoiceBox fx:id="displayBox" prefHeight="25.0" prefWidth="95.0"/>
+           <Label alignment="CENTER" text="Filter By Status:"/>
+           <Button mnemonicParsing="false" onAction="#changeDisplayType" text="Change Filter"/>
+           <Button mnemonicParsing="false" onAction="#addButtonClicked" prefWidth="80.0" text="Add Item"/>
+           <Button mnemonicParsing="false" onAction="#toggleStatusButtonPressed" prefWidth="89.0" text="Toggle Status"/>
+           <Button mnemonicParsing="false" onAction="#deleteButtonClicked" prefWidth="80.0" text="Delete Item"/>
+       </ToolBar>
+   </bottom>
+</BorderPane>

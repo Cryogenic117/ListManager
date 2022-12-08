@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            prefHeight="400.0" prefWidth="600.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+        <TextArea editable="false" layoutX="4.0" layoutY="8.0" prefHeight="356.0" prefWidth="593.0" text="- In order to change a list item double click the field you wish to change and enter a new value&#10;  Limitations include...&#10;        -The date entered is in the format (yyyy-mm-dd); The hyphen symbol is required.&#10;        -The description is less then 256 characters.&#10;&#10;- In order to change the status, click a item to select it and then click the &quot;Toggle Status&quot; button.&#10;&#10;- In order to add a new item simply click the &quot;Add&quot; button and a empty item will appear.&#10;&#10;- In order to delete an item select the item by clicking ONCE, then click the &quot;Delete&quot; button.&#10;&#10;- In order to clear the least you must be in the &quot;All&quot; display selection mode, and then click the&#10;    &quot;Clear list&quot; button.&#10;&#10;- The User can sort by any column category by ascending or descending order by clicking through&#10;    the column name.&#10;&#10;- By default all list items will be displayed however you can also display by the item's status by selecting the drop down selection for the appropriate category and clicking the &quot;Change&quot; button.&#10;&#10;- Column Length can be changed to allow increased viewing area for fields longer in length, this is done by &#10;   placing your cursor next to the direction you want to expand the column to and when your cursor changes&#10;   to a double sides arrow click and drag.&#10;&#10;-In order to export your list after populating it with items under File, select Save As. You will then be prompted to save the file in a specific location. &#10;&#10;- In order to load a list, under &quot;File&quot;, press the &quot;Load&quot; button.&#10;&#10;" wrapText="true" />
+    </AnchorPane>
+</AnchorPane>
